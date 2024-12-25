@@ -32,14 +32,14 @@ const areaKeys = {
       const emptyTileArea = emptyTile.style.getPropertyValue("--area").trim();
       
       // 检查点击的tile是否与空白tile相邻
-      if (areaKeys[emptyTileArea].includes(tileArea) || 1) {
+      // if (areaKeys[emptyTileArea].includes(tileArea) || 1) {
         // 交换位置
         emptyTile.style.setProperty("--area", tileArea);
         tile.style.setProperty("--area", emptyTileArea);
 
         // 解锁相邻的tiles
         unlockTiles(tileArea);
-      }
+      // }
     });
   });
   
