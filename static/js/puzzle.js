@@ -54,7 +54,7 @@ const areaKeys = {
       if (areaKeys[currentTileArea.trim()].includes(tileArea.trim())) {
         tile.disabled = false;
       } else {
-        tile.disabled = true;
+        tile.disabled = false;
       }
     });
   
