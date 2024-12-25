@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小鹏祝你圣诞快乐</title>
+</head>
+<link rel="stylesheet" href="./static/css/index.css">
+<link rel="stylesheet" href="./static/css/puzzle.css">
+
+<body>
+    <div id="overlay">
+        <h2 style="text-align: center; color: white; margin-bottom: 20px;">小鹏祝你圣诞快乐</h2>
+        <ul>
+            <li><button class="btn" id="btnA" type="button">鹿 be free</button></li>
+            <li><button class="btn" id="btnB" type="button">你从未离去</button></li>
+            <li><button class="btn" id="btnC" type="button">予你</button></li>
+            <li><button class="btn" id="btnD" type="button">12点钟的方向</button></li>
+			<li><button class="btn" id="btnE" type="button">stay with me</button></li>
+        </ul>
+    </div>
+
+    <div class="puzzle-box" style="visibility: hidden;">
+      <div class="puzzle">
+        <div class="heading">
+          <span>
+            <sub>★</sub> <sup>☆</sup> <sub>★</sub> <sup>☆</sup> <sub>★</sub> <sup>☆</sup> <sub>★</sub>
+          </span>
+          <h2 id="xq">还原出现圣诞树</h2>
+          <span>
+            <sup>★</sup> <sub>☆</sub> <sup>★</sup> <sub>☆</sub> <sup>★</sup> <sub>☆</sub> <sup>★</sup>
+          </span>
+        </div>
+        <div class="answer"></div>
+        <div class="grid">
+          <button class="tile tile--1" style="--area:A"></button>
+          <button class="tile tile--2" style="--area:B"></button>
+          <button class="tile tile--3" style="--area:C"></button>
+          <button class="tile tile--4" style="--area:D"></button>
+          <button class="tile tile--5" style="--area:E"></button>
+          <button class="tile tile--6" style="--area:F"></button>
+          <button class="tile tile--7" style="--area:G"></button>
+          <button class="tile tile--8" style="--area:H"></button>
+          <div class="tile tile--empty" style="--area:I"></div>
+        </div>
+      </div>
+      <div id="video-container" style="display:none;">
+        <video id="video1" muted="muted" autoplay="autoplay" loop="loop">
+          <source src="static/video/1.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+</body>
+
+</html>
+
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.115.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/postprocessing/EffectComposer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/postprocessing/RenderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/postprocessing/ShaderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/shaders/CopyShader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+<script src="./static/js/index.js"></script>
+<script src="./static/js/puzzle.js"></script>
