@@ -9,9 +9,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #161616;
     color: #c5a880;
     font-family: sans-serif;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 label {
