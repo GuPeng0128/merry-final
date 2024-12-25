@@ -105,6 +105,22 @@ function animate(time) {
     requestAnimationFrame(animate);
 }
 
+function initAudioContext() {
+    if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
+        WeixinJSBridge.invoke('getNetworkType', {}, function(e) {
+            audio.play();
+        });
+    } else {
+        document.addEventListener("WeixinJSBridgeReady", function() {
+            audio.play();
+        }, false);
+        
+        document.addEventListener('touchstart', function() {
+            audio.play();
+        }, false);
+    }
+}
+
 function loadAudio(i) {
     document.getElementById("overlay").innerHTML =
         '<div class="text-loading">祝福加载中...</div>';
@@ -120,19 +136,31 @@ function loadAudio(i) {
     const loader = new THREE.AudioLoader();
     loader.load(file, function(buffer) {
         audio.setBuffer(buffer);
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        if (!isIOS) {
-            audio.play();
-        }
         analyser = new THREE.AudioAnalyser(audio, fftSize);
-        init();
+        
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
         
         if (isIOS) {
-            const playAudioHandler = () => {
-                audio.play();
-                document.removeEventListener('click', playAudioHandler);
+            document.getElementById("ios-tip").style.display = "block";
+            
+            initAudioContext();
+            
+            const playHandler = function() {
+                audio.play().then(() => {
+                    document.getElementById("ios-tip").style.display = "none";
+                    init();
+                }).catch((error) => {
+                    console.log("播放失败:", error);
+                });
+                document.removeEventListener('click', playHandler);
+                document.removeEventListener('touchend', playHandler);
             };
-            document.addEventListener('click', playAudioHandler);
+            
+            document.addEventListener('click', playHandler);
+            document.addEventListener('touchend', playHandler);
+        } else {
+            audio.play();
+            init();
         }
     });
 }
@@ -148,19 +176,30 @@ function uploadAudio(event) {
 
         listener.context.decodeAudioData(arrayBuffer, function(audioBuffer) {
             audio.setBuffer(audioBuffer);
+            
             const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-            if (!isIOS) {
-                audio.play();
-            }
-            analyser = new THREE.AudioAnalyser(audio, fftSize);
-            init();
             
             if (isIOS) {
-                const playAudioHandler = () => {
-                    audio.play();
-                    document.removeEventListener('click', playAudioHandler);
+                document.getElementById("ios-tip").style.display = "block";
+                
+                initAudioContext();
+                
+                const playHandler = function() {
+                    audio.play().then(() => {
+                        document.getElementById("ios-tip").style.display = "none";
+                        init();
+                    }).catch((error) => {
+                        console.log("播放失败:", error);
+                    });
+                    document.removeEventListener('click', playHandler);
+                    document.removeEventListener('touchend', playHandler);
                 };
-                document.addEventListener('click', playAudioHandler);
+                
+                document.addEventListener('click', playHandler);
+                document.addEventListener('touchend', playHandler);
+            } else {
+                audio.play();
+                init();
             }
         });
     };
