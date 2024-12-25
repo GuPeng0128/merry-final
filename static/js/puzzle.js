@@ -73,17 +73,27 @@ const areaKeys = {
         heading.style = `
           animation: popIn .3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         `;
-        
-        // 显示视频
-        document.querySelector('.puzzle').style.display = 'none';
-        const videoContainer = document.querySelector('#video-container');
-        videoContainer.style.display = 'block';
-        
-        // 播放视频
-        const video = document.querySelector('#video1');
-        if(video) {
-          video.play();
-        }
+
+        // 添加3秒倒计时
+        let countdown = 3;
+        const countdownInterval = setInterval(() => {
+          heading.children[1].innerHTML = `圣诞快乐! ${countdown}`;
+          countdown--;
+          
+          if (countdown < 0) {
+            clearInterval(countdownInterval);
+            // 倒计时结束后显示视频
+            document.querySelector('.puzzle').style.display = 'none';
+            const videoContainer = document.querySelector('#video-container');
+            videoContainer.style.display = 'block';
+            
+            // 播放视频
+            const video = document.querySelector('#video1');
+            if(video) {
+              video.play();
+            }
+          }
+        }, 1000);
       }
     };
   
