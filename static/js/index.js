@@ -38,7 +38,6 @@ const audio = new THREE.Audio(listener);
 const buttons = document.querySelectorAll(".btn");
 buttons.forEach((button, index) => {
     button.addEventListener("click", () => loadAudio(index));
-    document.addEventListener("touchstart", () => loadAudio(index));
 });
 
 function init() {
@@ -121,16 +120,22 @@ function loadAudio(i) {
     const loader = new THREE.AudioLoader();
     loader.load(file, function(buffer) {
         audio.setBuffer(buffer);
-        audio.play();
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        if (!isIOS) {
+            audio.play();
+        }
         analyser = new THREE.AudioAnalyser(audio, fftSize);
         init();
+        
+        if (isIOS) {
+            const playAudioHandler = () => {
+                audio.play();
+                document.removeEventListener('click', playAudioHandler);
+            };
+            document.addEventListener('click', playAudioHandler);
+        }
     });
-
-
-
-
 }
-
 
 function uploadAudio(event) {
     document.getElementById("overlay").innerHTML =
@@ -143,9 +148,20 @@ function uploadAudio(event) {
 
         listener.context.decodeAudioData(arrayBuffer, function(audioBuffer) {
             audio.setBuffer(audioBuffer);
-            audio.play();
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            if (!isIOS) {
+                audio.play();
+            }
             analyser = new THREE.AudioAnalyser(audio, fftSize);
             init();
+            
+            if (isIOS) {
+                const playAudioHandler = () => {
+                    audio.play();
+                    document.removeEventListener('click', playAudioHandler);
+                };
+                document.addEventListener('click', playAudioHandler);
+            }
         });
     };
 
