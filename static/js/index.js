@@ -36,9 +36,10 @@ const listener = new THREE.AudioListener();
 const audio = new THREE.Audio(listener);
 
 const buttons = document.querySelectorAll(".btn");
-buttons.forEach((button, index) =>
-    button.addEventListener("click", () => loadAudio(index))
-);
+buttons.forEach((button, index) => {
+    button.addEventListener("click", () => loadAudio(index));
+    document.addEventListener("touchstart", () => loadAudio(index));
+});
 
 function init() {
     const overlay = document.getElementById("overlay");
